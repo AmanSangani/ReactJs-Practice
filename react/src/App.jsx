@@ -7,9 +7,29 @@ import Cards from './MiniProjects/Components/Cards'
 import BgChange from './MiniProjects/BgChange'
 import PasswordGenerator from './MiniProjects/PasswordGenerator'
 import CurrrencyConverter from './MiniProjects/CurrrencyConverter'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Layout from './RouterExample/Components/Layout'
+
+import Home from './RouterExample/Components/Home'
+import About from './RouterExample/Components/About'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        {
+          path: '',
+          element: <Home/>
+        },
+        {
+          path: '/about',
+          element: <About />
+        }
+      ]
+    }
+  ])
 
   return (
     <>
@@ -18,7 +38,9 @@ function App() {
       <Cards username="Alvish" btnText="click here"/> */}
       {/* <BgChange/> */}
       {/* <PasswordGenerator/> */}
-      < CurrrencyConverter />
+      {/* < CurrrencyConverter /> */}
+
+      <RouterProvider router={router} />
     </>
   )
 }
