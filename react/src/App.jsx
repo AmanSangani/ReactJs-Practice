@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 // import './App.css'
 
@@ -7,11 +8,14 @@ import Cards from './MiniProjects/Components/Cards'
 import BgChange from './MiniProjects/BgChange'
 import PasswordGenerator from './MiniProjects/PasswordGenerator'
 import CurrrencyConverter from './MiniProjects/CurrrencyConverter'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Layout from './RouterExample/Components/Layout'
 
+import Layout from './RouterExample/Components/Layout'
 import Home from './RouterExample/Components/Home'
 import About from './RouterExample/Components/About'
+import Contact from './RouterExample/Components/Contact'
+import User from './RouterExample/Components/User'
+import Github from './RouterExample/Components/Github'
+import { githubInfoLoader } from './RouterExample/Components/GithubInfoLoader'
 
 function App() {
   const router = createBrowserRouter([
@@ -21,11 +25,24 @@ function App() {
       children: [
         {
           path: '',
-          element: <Home/>
+          element: <Home />
         },
         {
           path: '/about',
           element: <About />
+        },
+        {
+          path: '/contact',
+          element: <Contact />
+        },
+        {
+          path: '/user/:id',
+          element: <User />
+        },
+        {
+          loader: githubInfoLoader,
+          path: '/github',
+          element: <Github />
         }
       ]
     }
