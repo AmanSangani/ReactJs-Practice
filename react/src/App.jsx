@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 // import './App.css'
@@ -10,12 +9,16 @@ import PasswordGenerator from './MiniProjects/PasswordGenerator'
 import CurrrencyConverter from './MiniProjects/CurrrencyConverter'
 
 import Layout from './RouterExample/Components/Layout'
+import Layout2 from './RouterExample/Components/Layout2'
 import Home from './RouterExample/Components/Home'
 import About from './RouterExample/Components/About'
 import Contact from './RouterExample/Components/Contact'
 import User from './RouterExample/Components/User'
 import Github from './RouterExample/Components/Github'
 import { githubInfoLoader } from './RouterExample/Components/GithubInfoLoader'
+import UserContextProvider from './MiniProjects/context/UserContextProvider'
+import Login from './MiniProjects/Components/Login'
+import Profile from './MiniProjects/Components/Profile'
 
 function App() {
   const router = createBrowserRouter([
@@ -35,9 +38,43 @@ function App() {
           path: '/contact',
           element: <Contact />
         },
+        // {
+        //   path: '/user/:id',
+        //   element: <User />,
+        // },
         {
-          path: '/user/:id',
-          element: <User />
+          path: '/user',
+          element: <Layout2 />,
+          children: [
+            {
+              path: '',
+              element: <User />
+            },
+            {
+              path: 'counter',
+              element: <Counter />
+            },
+            {
+              path: 'cards',
+              element: <Cards />
+            },
+            {
+              path: 'bgChange',
+              element: <BgChange />
+            },
+            {
+              path: 'password',
+              element: <PasswordGenerator />
+            },
+            {
+              path: 'currencyconverter',
+              element: <CurrrencyConverter />
+            },
+            {
+              path: 'contextApi',
+              element: <CurrrencyConverter />
+            }
+          ]
         },
         {
           loader: githubInfoLoader,
@@ -50,14 +87,12 @@ function App() {
 
   return (
     <>
-      {/* <Counter/> */}
-      {/* <Cards username="Aman" btnText="click me"/>
-      <Cards username="Alvish" btnText="click here"/> */}
-      {/* <BgChange/> */}
-      {/* <PasswordGenerator/> */}
-      {/* < CurrrencyConverter /> */}
+      {/* <RouterProvider router={router} /> */}
 
-      <RouterProvider router={router} />
+      <UserContextProvider>
+        <Login/>
+        <Profile/>
+      </UserContextProvider>
     </>
   )
 }

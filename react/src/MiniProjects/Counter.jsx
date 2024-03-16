@@ -22,14 +22,16 @@ const Counter = () => {
     }
     return (
         <>
-            <h1 className='mb-10'>Counter : {counter}</h1>
-            <button onClick={addValue}>Add Value</button>
-            <br />
-            <br />
-            <button onClick={subtractValue}>Subtract Value</button>
-            <br />
-            <br />
-            <button onClick={resetValue}>Reset Value</button>
+            <div className='m-8 mb-[150px] flex justify-center items-center'>
+                <h1 className='text-3xl me-5'>Counter : {counter}</h1>
+                <button className='text-white m-2 p-1 rounded bg-black' onClick={addValue}>Add Value</button>
+                <br />
+                <br />
+                <button className='text-white m-2 p-1 rounded bg-black' onClick={subtractValue}>Subtract Value</button>
+                <br />
+                <br />
+                <button className='text-white m-2 p-1 rounded bg-black' onClick={resetValue}>Reset Value</button>
+            </div>
         </>
     )
 }

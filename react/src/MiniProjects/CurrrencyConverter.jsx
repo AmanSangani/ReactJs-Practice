@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import CurrencyInput from './Components/CurrencyInput'
 import useCurrencyInfo from './customHook/useCurrencyInfo'
 
@@ -25,13 +25,13 @@ const CurrrencyConverter = () => {
     return (
         <>
             <div
-                className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+                className="flex flex-wrap items-center justify-center w-full h-screen bg-no-repeat bg-cover"
                 style={{
                     backgroundImage: `url('https://images.pexels.com/photos/1629172/pexels-photo-1629172.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
                 }}
             >
                 <div className="w-full">
-                    <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+                    <div className="w-full max-w-md p-5 mx-auto border rounded-lg border-gray-60 backdrop-blur-sm bg-white/30">
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
@@ -43,7 +43,7 @@ const CurrrencyConverter = () => {
                                     label="From"
                                     amount={amount}
                                     currencyOptions={options}
-                                    onCurrencyChange={(currency) => setAmount(amount)}
+                                    onCurrencyChange={(amount) => setAmount(amount)}
                                     selectCurrency={from}
                                     onAmountChange={(amount) => setAmount(amount)}
                                 />
@@ -67,7 +67,7 @@ const CurrrencyConverter = () => {
                                     amountDisable
                                 />
                             </div>
-                            <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
+                            <button type="submit" className="w-full px-4 py-3 text-white bg-blue-600 rounded-lg">
                                 Convert {from.toUpperCase()} to {to.toUpperCase()}
                             </button>
                         </form>
