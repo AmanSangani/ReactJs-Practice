@@ -16,9 +16,10 @@ import Contact from './RouterExample/Components/Contact'
 import User from './RouterExample/Components/User'
 import Github from './RouterExample/Components/Github'
 import { githubInfoLoader } from './RouterExample/Components/GithubInfoLoader'
-import UserContextProvider from './MiniProjects/context/UserContextProvider'
-import Login from './MiniProjects/Components/Login'
-import Profile from './MiniProjects/Components/Profile'
+import Layout3 from './MiniProjects/Layout3'
+// import UserContextProvider from './MiniProjects/context/UserContextProvider'
+// import Login from './MiniProjects/Components/Login'
+// import Profile from './MiniProjects/Components/Profile'
 
 function App() {
   const router = createBrowserRouter([
@@ -72,7 +73,7 @@ function App() {
             },
             {
               path: 'contextApi',
-              element: <CurrrencyConverter />
+              element: <Layout3 />
             }
           ]
         },
@@ -87,12 +88,12 @@ function App() {
 
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
+      <RouterProvider router={router} />
 
-      <UserContextProvider>
+      {/* <UserContextProvider>
         <Login/>
         <Profile/>
-      </UserContextProvider>
+      </UserContextProvider> */}
     </>
   )
 }
