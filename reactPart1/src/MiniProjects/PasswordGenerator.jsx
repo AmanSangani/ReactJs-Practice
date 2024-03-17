@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 const PasswordGenerator = () => {
     const [length, setLength] = useState(8);
@@ -39,13 +39,13 @@ const PasswordGenerator = () => {
 
     return (
         <>
-            <div className='w-full text-center max-w-md mx-auto shadow-md rounded-lg px-4 py-3 my-8 text-white bg-gray-500'>
-                <h1 className='text-gray-800 my-2 text-3xl text-center font-bold'>Password Generator</h1>
-                <div className='flex shadow rounded-lg overflow-hidden mb-5'>
+            <div className='w-full max-w-md px-4 py-3 mx-auto my-8 text-center text-white bg-gray-500 rounded-lg shadow-md'>
+                <h1 className='my-2 text-3xl font-bold text-center text-gray-800'>Password Generator</h1>
+                <div className='flex mb-5 overflow-hidden rounded-lg shadow'>
                     <input
                         type="text"
                         value={password}
-                        className='outline-none text-black w-full py-1 px-3'
+                        className='w-full px-3 py-1 text-black outline-none'
                         placeholder='Password'
                         readOnly
                         ref={passwordRef}
@@ -74,7 +74,7 @@ const PasswordGenerator = () => {
                             type="checkbox"
                             defaultChecked={number}
                             id='numberInput'
-                            onChange={(e) => { setNumber((prev) => !prev) }}
+                            onChange={() => { setNumber((prev) => !prev) }}
                         />
                         <label htmlFor="numberInput">Numbers</label>
                     </div>
@@ -83,7 +83,7 @@ const PasswordGenerator = () => {
                             type="checkbox"
                             defaultChecked={characters}
                             id='charInput'
-                            onChange={(e) => { setCharacters((prev) => !prev) }}
+                            onChange={() => { setCharacters((prev) => !prev) }}
                         />
                         <label htmlFor="charInput">Characters</label>
                     </div>
