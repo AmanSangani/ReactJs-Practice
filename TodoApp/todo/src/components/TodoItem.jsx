@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
+// TodoItem.js
 import { useState } from "react";
 import { useTodo } from "../context";
 
-function TodoItem({ todo }) {
-
+function TodoItem({ todo, index, onDragStart, onDragOver, onDrop }) {
     const [isTodoEditable, setIsTodoEditable] = useState(false)
     const [todoMsg, setTodoMsg] = useState(todo.todoMessage)
 
@@ -13,16 +12,24 @@ function TodoItem({ todo }) {
         updateTodo(todo.id, { ...todo, todoMessage: todoMsg })
         setIsTodoEditable(false)
     }
-    
+
     const toggleCompleted = () => {
         toggleComplete(todo.id)
     }
 
     return (
         <div
-            className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${todo.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
+            className={`mb-3 flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${todo.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
                 }`}
+            draggable="true"
+            onDragStart={(e) => onDragStart(e, index)}
+            onDragOver={(e) => onDragOver(e)}
+            onDrop={(e) => onDrop(e, index)}
         >
+            {/* Drag handle button */}
+            <div className="drag-handle" draggable="true" onDragStart={(e) => e.stopPropagation()}>
+                ☰
+            </div>
             <input
                 type="checkbox"
                 className="cursor-pointer"

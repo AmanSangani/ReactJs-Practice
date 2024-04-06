@@ -1,41 +1,62 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import { TodoProvider } from './context'
-import { TodoForm, TodoItem } from './components'
+// App.js
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import { TodoProvider } from './context';
+import { TodoForm, TodoItem } from './components';
 
 function App() {
-
-  const [todo, setTodo] = useState([])
+  const [todo, setTodo] = useState([]);
 
   const addTodo = (todo) => {
-    setTodo((prev) => [...prev, todo])
-    console.log(todo);
-  }
+    setTodo((prev) => [...prev, todo]);
+  };
 
-  const updateTodo = (id, todo) => {
-    setTodo((prev) => prev.map((eachTodo) => (eachTodo.id === id ? todo : eachTodo)))
-  }
+  const updateTodo = (id, updatedTodo) => {
+    setTodo((prev) =>
+      prev.map((eachTodo) => (eachTodo.id === id ? updatedTodo : eachTodo))
+    );
+  };
 
   const deleteTodo = (id) => {
-    setTodo((prev) => prev.filter((todo) => todo.id !== id))
-  }
+    setTodo((prev) => prev.filter((todo) => todo.id !== id));
+  };
 
   const toggleComplete = (id) => {
-    setTodo((prev) => prev.map((eachTodo) => eachTodo.id === id ? { ...eachTodo, completed: !eachTodo.completed } : eachTodo))
-  }
+    setTodo((prev) =>
+      prev.map((eachTodo) =>
+        eachTodo.id === id ? { ...eachTodo, completed: !eachTodo.completed } : eachTodo
+      )
+    );
+  };
 
   useEffect(() => {
-    const todos = JSON.parse(localStorage.getItem("todos"))
+    const todos = JSON.parse(localStorage.getItem('todos'));
 
     if (todos && todos.length > 0) {
-      setTodo(todos)
+      setTodo(todos);
     }
-
-  }, [])
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todo))
-  }, [todo])
+    localStorage.setItem('todos', JSON.stringify(todo));
+  }, [todo]);
+
+  const onDragStart = (e, index) => {
+    e.dataTransfer.setData("index", index);
+  };
+
+  const onDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const onDrop = (e, newIndex) => {
+    e.preventDefault();
+    const oldIndex = e.dataTransfer.getData("index");
+    const newTodos = [...todo];
+    const [removedTodo] = newTodos.splice(oldIndex, 1);
+    newTodos.splice(newIndex, 0, removedTodo);
+    setTodo(newTodos);
+  };
 
   return (
     <TodoProvider value={{ todo, addTodo, updateTodo, deleteTodo, toggleComplete }}>
@@ -45,21 +66,22 @@ function App() {
           <div className="mb-4">
             <TodoForm />
           </div>
-          <div className="flex flex-wrap gap-y-3">
-            {/*Loop and Add TodoItem here */}
-            {todo.map((eachTodo) => {
-              console.log(eachTodo);
-              return (
-                <div key={eachTodo.id} className='w-full'>
-                  <TodoItem todo={eachTodo} />
-                </div>
-              )
-            })}
+          <div>
+            {todo.map((eachTodo, index) => (
+              <TodoItem
+                key={eachTodo.id}
+                todo={eachTodo}
+                index={index}
+                onDragStart={onDragStart}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+              />
+            ))}
           </div>
         </div>
       </div>
     </TodoProvider>
-  )
+  );
 }
 
-export default App
+export default App;
